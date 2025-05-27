@@ -3,15 +3,17 @@
 
 
 
+import { ColorModeContext } from "@/contexts/color-mode";
 import type { RefineThemedLayoutV2HeaderProps } from "@refinedev/antd";
 
 import {
     Layout as AntdLayout,
     Space,
+    
     theme,
   } from "antd";
 
-import React, {  } from "react";
+import React, { useContext } from "react";
 
 
 
@@ -23,6 +25,8 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps & { sticky?: boole
  
 }) => {
   const { token } = useToken();
+
+  const { mode, setMode } = useContext(ColorModeContext);
 
 
   
@@ -60,12 +64,14 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps & { sticky?: boole
       <Space>
       
        
-        {/* <Switch
-          checkedChildren="🌛"
-          unCheckedChildren="🔆"
-          onChange={() => setMode(mode === "light" ? "dark" : "light")}
-          defaultChecked={mode === "dark"}
-        /> */}
+         <span
+        onClick={() => setMode(mode === "dark" ? "light" : "dark")}
+        className="text-md font-semibold transition-opacity duration-500 hover:underline"
+      >
+        {mode === "dark"
+          ? "Let there be light"
+          : "O darkness, my old friend"}
+      </span>
 
       </Space>
     </AntdLayout.Header>

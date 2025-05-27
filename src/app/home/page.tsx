@@ -6,7 +6,7 @@
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-white text-black">
+    <main className="flex min-h-screen items-center justify-center">
       <h1 className="text-5xl font-bold flex items-center gap-3">
         Hi <span className="wave text-5xl">👋</span>
       </h1>

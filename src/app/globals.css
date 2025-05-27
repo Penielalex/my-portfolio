@@ -24,3 +24,27 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.screen-transition {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300vmax;
+  height: 300vmax;
+  border-radius: 50%;
+  transform: scale(0);
+  transform-origin: top right;
+  transition: transform 0.6s ease-in-out;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.screen-transition.expand {
+  transform: scale(1);
+  background: white;
+}
+
+.dark .screen-transition.expand {
+  background: #141414;
+}
+

@@ -25,6 +25,7 @@ export const ColorModeContextProvider: React.FC<
 > = ({ children, defaultMode }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [mode, setMode] = useState(defaultMode || "light");
+  const [animating, setAnimating] = useState(false); // NEW
 
   useEffect(() => {
     setIsMounted(true);
@@ -38,13 +39,13 @@ export const ColorModeContextProvider: React.FC<
   }, [isMounted]);
 
   const setColorMode = () => {
-    if (mode === "light") {
-      setMode("dark");
-      Cookies.set("theme", "dark");
-    } else {
-      setMode("light");
-      Cookies.set("theme", "light");
-    }
+    setAnimating(true); // Start animation
+    setTimeout(() => {
+      const newMode = mode === "light" ? "dark" : "light";
+      setMode(newMode);
+      Cookies.set("theme", newMode);
+      setAnimating(false);
+    }, 600); // Sync with animation duration
   };
 
   const { darkAlgorithm, defaultAlgorithm } = theme;
@@ -59,12 +60,15 @@ export const ColorModeContextProvider: React.FC<
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "#2FC56D", // Green button color
+            colorPrimary: "#2FC56D",
           },
           algorithm: mode === "light" ? defaultAlgorithm : darkAlgorithm,
         }}
       >
-        <AntdApp>{children}</AntdApp>
+        <AntdApp>
+          {animating && <div className="screen-transition expand" />} {/* Animation layer */}
+          {children}
+        </AntdApp>
       </ConfigProvider>
     </ColorModeContext.Provider>
   );
