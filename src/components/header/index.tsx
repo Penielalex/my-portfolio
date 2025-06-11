@@ -62,16 +62,17 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps & { sticky?: boole
         
       </div>
       <Space>
+       
       
        
          <span
         onClick={() => setMode(mode === "dark" ? "light" : "dark")}
-        className="text-md font-semibold transition-opacity duration-500 hover:underline"
       >
         {mode === "dark"
           ? "Let there be light"
           : "O darkness, my old friend"}
       </span>
+      
 
       </Space>
     </AntdLayout.Header>

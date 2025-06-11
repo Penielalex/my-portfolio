@@ -45,7 +45,8 @@ export const ColorModeContextProvider: React.FC<
       setMode(newMode);
       Cookies.set("theme", newMode);
       setAnimating(false);
-    }, 600); // Sync with animation duration
+    }, 600);
+     // Sync with animation duration
   };
 
   const { darkAlgorithm, defaultAlgorithm } = theme;
@@ -65,10 +66,20 @@ export const ColorModeContextProvider: React.FC<
           algorithm: mode === "light" ? defaultAlgorithm : darkAlgorithm,
         }}
       >
-        <AntdApp>
-          {animating && <div className="screen-transition expand" />} {/* Animation layer */}
-          {children}
-        </AntdApp>
+        <AntdApp className="relative z-10">
+  {animating && (
+    <div
+      className="cascade-transition"
+      style={{
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ["--cascade-color" as any]: mode === "light" ? "#000" : "#fff",
+      }}
+    />
+  )}
+  {children}
+</AntdApp>
+
+
       </ConfigProvider>
     </ColorModeContext.Provider>
   );

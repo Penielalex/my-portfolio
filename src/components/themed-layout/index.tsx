@@ -11,17 +11,13 @@ interface ThemedLayoutProps extends React.PropsWithChildren {
 
 export const ThemedLayout: React.FC<ThemedLayoutProps> = ({
   children,
-  dashboardType,
+  
   showSlider = false, // optional default
 }) => {
   return (
     <ThemedLayoutV2
-      Title={() => (
-        <div className="flex items-center justify-center overflow-hidden h-4/5">
-         
-        </div>
-      )}
-      Header={() => <Header dashboardType={dashboardType} />}
+      
+      Header={() => <Header />}
       Sider={showSlider ? undefined : () => null} // ✅ Only show Sider if `showSlider` is true
     >
       {children}

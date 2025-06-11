@@ -1,15 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 
+
+/* ========== THEME VARIABLES ========== */
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans, 'Arial', sans-serif);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,32 +16,83 @@
   }
 }
 
+body[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+body[data-theme="dark"] {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
 }
 
-.screen-transition {
+/* ========== RIPPLE ANIMATION ========== */
+.theme-ripple {
   position: fixed;
-  top: 0;
-  right: 0;
-  width: 300vmax;
-  height: 300vmax;
-  border-radius: 50%;
-  transform: scale(0);
-  transform-origin: top right;
-  transition: transform 0.6s ease-in-out;
-  z-index: 9999;
+  background: var(--foreground);
+  z-index: 999;
+  inset: 0;
+  animation: ripple-expand 0.7s ease-in-out forwards;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.screen-transition.expand {
-  transform: scale(1);
-  background: white;
+
+@keyframes ripple-expand {
+  0% {
+    clip-path: polygon(100% 0%, 0% 0% , 0.00% 0.00%, 2.00% -0.33%, 4.00% -1.30%, 6.00% -2.82%, 8.00% -4.80%, 10.00% -7.07%, 12.00% -9.46%, 14.00% -11.79%, 16.00% -13.89%, 18.00% -15.60%, 20.00% -16.78%, 22.00% -17.35%, 24.00% -17.26%, 26.00% -16.52%, 28.00% -15.18%, 30.00% -13.36%, 32.00% -11.17%, 34.00% -8.80%, 36.00% -6.43%, 38.00% -4.22%, 40.00% -2.36%, 42.00% -0.97%, 44.00% -0.18%, 46.00% -0.02%, 48.00% -0.53%, 50.00% -1.66%, 52.00% -3.32%, 54.00% -5.39%, 56.00% -7.71%, 58.00% -10.11%, 60.00% -12.40%, 62.00% -14.41%, 64.00% -15.98%, 66.00% -17.00%, 68.00% -17.39%, 70.00% -17.12%, 72.00% -16.21%, 74.00% -14.73%, 76.00% -12.79%, 78.00% -10.54%, 80.00% -8.15%, 82.00% -5.80%, 84.00% -3.67%, 86.00% -1.93%, 88.00% -0.69%, 90.00% -0.07%, 92.00% -0.10%, 94.00% -0.78%, 96.00% -2.07%, 98.00% -3.85%, 100.00% -6.01%);
+  }
+  50% {
+    clip-path: polygon(100% 0%, 0% 0% , 0.00% 61.54%, 2.00% 61.21%, 4.00% 60.24%, 6.00% 58.72%, 8.00% 56.74%, 10.00% 54.47%, 12.00% 52.08%, 14.00% 49.74%, 16.00% 47.64%, 18.00% 45.94%, 20.00% 44.76%, 22.00% 44.19%, 24.00% 44.28%, 26.00% 45.02%, 28.00% 46.36%, 30.00% 48.18%, 32.00% 50.36%, 34.00% 52.73%, 36.00% 55.11%, 38.00% 57.32%, 40.00% 59.18%, 42.00% 60.57%, 44.00% 61.36%, 46.00% 61.51%, 48.00% 61.01%, 50.00% 59.88%, 52.00% 58.22%, 54.00% 56.15%, 56.00% 53.82%, 58.00% 51.43%, 60.00% 49.14%, 62.00% 47.13%, 64.00% 45.56%, 66.00% 44.54%, 68.00% 44.15%, 70.00% 44.42%, 72.00% 45.33%, 74.00% 46.81%, 76.00% 48.75%, 78.00% 51.00%, 80.00% 53.39%, 82.00% 55.74%, 84.00% 57.87%, 86.00% 59.61%, 88.00% 60.84%, 90.00% 61.47%, 92.00% 61.44%, 94.00% 60.76%, 96.00% 59.47%, 98.00% 57.69%, 100.00% 55.53%);
+  }
+  100% {
+    clip-path: polygon(100% 0%, 0% 0% , 0.00% 120.07%, 2.00% 119.74%, 4.00% 118.77%, 6.00% 117.24%, 8.00% 115.27%, 10.00% 113.00%, 12.00% 110.61%, 14.00% 108.27%, 16.00% 106.17%, 18.00% 104.47%, 20.00% 103.29%, 22.00% 102.72%, 24.00% 102.81%, 26.00% 103.55%, 28.00% 104.88%, 30.00% 106.71%, 32.00% 108.89%, 34.00% 111.26%, 36.00% 113.64%, 38.00% 115.84%, 40.00% 117.71%, 42.00% 119.09%, 44.00% 119.89%, 46.00% 120.04%, 48.00% 119.53%, 50.00% 118.41%, 52.00% 116.74%, 54.00% 114.67%, 56.00% 112.35%, 58.00% 109.96%, 60.00% 107.67%, 62.00% 105.66%, 64.00% 104.09%, 66.00% 103.07%, 68.00% 102.68%, 70.00% 102.95%, 72.00% 103.86%, 74.00% 105.34%, 76.00% 107.28%, 78.00% 109.53%, 80.00% 111.92%, 82.00% 114.27%, 84.00% 116.39%, 86.00% 118.14%, 88.00% 119.37%, 90.00% 120.00%, 92.00% 119.97%, 94.00% 119.29%, 96.00% 118.00%, 98.00% 116.21%, 100.00% 114.06%);
+  }
 }
 
-.dark .screen-transition.expand {
-  background: #141414;
+/* ========== STYLING ========== */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  
 }
+.greeting-text {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.text-theme {
+  color: var(--foreground);
+  transition: color 0.7s ease; 
+}
+
+.theme-toggle-text {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--foreground);
+  transition: color 0.3s ease;
+  z-index: 50;
+  text-decoration: underline;
+}
+
+.theme-toggle-text:hover {
+  opacity: 0.8;
+}
+
 
